@@ -64,10 +64,10 @@ def job():
 
 
 # run jobs
-schedule.every().hour.do(job)
-schedule.every().day.at("17:40").do(job)
-schedule.every().day.at("18:42").do(job)
-
-while True:
-    schedule.run_pending()
+# schedule.every().hour.do(job)
+# schedule.every(1).minutes.do(job)
+#
+# while True:
+#     schedule.run_pending()
     # time.sleep(1)
+job()
