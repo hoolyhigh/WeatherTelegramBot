@@ -56,8 +56,8 @@ def job():
             # send sun (default) and send message for me
             bot.send_message(shut_down_alert, "description to add: {0}".format(main_current))
 
-        # bot.send_message(dest, emoji.emojize(u"{0} - {1} \nTemperatura maxima: {2}C".format(emoji_to_show, description, temp_max))) # dest and msg
-        print emoji.emojize("{0} - {1} \nTemperatura maxima: {2} C\nTemperatura minima: {3} C\nUmidade de {4}%\n\n==============\nCreated by @JGabrielFreitas\nPowered by OpenWeather API".format(emoji_to_show, description, temp_max, temp_min, humidity))
+        bot.send_message(dest, emoji.emojize("{0} - {1} \nTemperatura maxima: {2} C\nTemperatura minima: {3} C\nUmidade de {4}%\n\n==============\nCreated by @JGabrielFreitas\nPowered by OpenWeather API".format(emoji_to_show, description, temp_max, temp_min, humidity))) # dest and msg
+        # print emoji.emojize("{0} - {1} \nTemperatura maxima: {2} C\nTemperatura minima: {3} C\nUmidade de {4}%\n\n==============\nCreated by @JGabrielFreitas\nPowered by OpenWeather API".format(emoji_to_show, description, temp_max, temp_min, humidity))
     except:
         bot.send_message(shut_down_alert, "Dude, your bot is down...:\n\n{0}".format(traceback.format_exc()))
 
@@ -65,8 +65,8 @@ def job():
 
 # run jobs
 schedule.every().hour.do(job)
-schedule.every().day.at("16:22").do(job)
 schedule.every().day.at("16:25").do(job)
+schedule.every().day.at("16:30").do(job)
 
 while True:
     schedule.run_pending()
