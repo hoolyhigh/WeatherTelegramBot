@@ -57,7 +57,7 @@ def job():
             bot.send_message(shut_down_alert, "description to add: {0}".format(main_current))
 
         # bot.send_message(dest, emoji.emojize(u"{0} - {1} \nTemperatura maxima: {2}C".format(emoji_to_show, description, temp_max))) # dest and msg
-        print emoji.emojize("{0} - {1} \nTemperatura maxima: {2} C\nTemperatura minima: {3} C\n\n==============\nCreated by @JGabrielFreitas\nPowered by OpenWeather API".format(emoji_to_show, description, temp_max, temp_min))
+        print emoji.emojize("{0} - {1} \nTemperatura maxima: {2} C\nTemperatura minima: {3} C\nUmidade de {4}%\n\n==============\nCreated by @JGabrielFreitas\nPowered by OpenWeather API".format(emoji_to_show, description, temp_max, temp_min, humidity))
     except:
         bot.send_message(shut_down_alert, "Dude, your bot is down...:\n\n{0}".format(traceback.format_exc()))
 
