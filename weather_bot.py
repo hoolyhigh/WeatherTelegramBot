@@ -6,7 +6,9 @@ import schedule
 import time
 import emoji
 import traceback
-from apscheduler.schedulers.blocking import BlockingScheduler
+# from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.scheduler import Scheduler
+
 
 DEV_API_KEY = "44db6a862fba0b067b1930da0d769e98"
 TOKEN = '213675554:AAEHHFkB-NCFt0evRhfoodeL3SOIIEfDGNQ'
@@ -14,7 +16,9 @@ dest = '@clima_rio'
 shut_down_alert = '@shut_down_clima_rio'
 
 bot = telebot.TeleBot(TOKEN)
-sched = BlockingScheduler()
+# sched = BlockingScheduler()
+sched = Scheduler()
+
 
 def kelvin_to_celsius(kelvin):
     return ("%.1f" % (kelvin - 273) )
@@ -62,7 +66,7 @@ def job():
     except:
         bot.send_message(shut_down_alert, "Dude, your bot is down...:\n\n{0}".format(traceback.format_exc()))
 
-@sched.scheduled_job('interval', minutes=1)
+# @sched.interval_schedule()
 def timed_job():
     print('This job is run every one minutes.')
     job()
@@ -81,4 +85,5 @@ def timed_job():
 #     schedule.run_pending()
     # time.sleep(1)
 # job()
+sched.add_job(timed_job, 'interval', seconds=10, id="timed_job")
 sched.start()
