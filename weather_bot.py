@@ -62,14 +62,15 @@ def job():
     except:
         bot.send_message(shut_down_alert, "Dude, your bot is down...:\n\n{0}".format(traceback.format_exc()))
 
-@sched.scheduled_job('interval', minutes=3)
+@sched.scheduled_job('interval', minutes=1)
 def timed_job():
-    print('This job is run every three minutes.')
-
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
-def scheduled_job():
-    print('This job is run every weekday at 5pm.')
+    print('This job is run every one minutes.')
     job()
+
+# @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
+# def scheduled_job():
+#     print('This job is run every weekday at 5pm.')
+#     job()
 
 
 # run jobs
