@@ -65,8 +65,8 @@ def job():
 
 # run jobs
 schedule.every().hour.do(job)
-schedule.every().day.at("16:25").do(job)
-schedule.every().day.at("16:30").do(job)
+schedule.every().day.at("17:33").do(job)
+schedule.every().day.at("18:00").do(job)
 
 while True:
     schedule.run_pending()
