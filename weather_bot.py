@@ -81,5 +81,5 @@ def job():
 def scheduled_job():
     job()
 
-sched.add_job(scheduled_job, 'interval', minutes=5)
+sched.add_job(scheduled_job, 'interval', minutes=59)
 sched.start()
