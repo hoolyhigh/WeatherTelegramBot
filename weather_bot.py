@@ -2,26 +2,29 @@ import telebot
 import sys
 import requests
 import json
-import schedule
 import time
 import emoji
 import traceback
 import configparser
-# from apscheduler.schedulers.blocking import BlockingScheduler
-from apscheduler.scheduler import Scheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
+# from apscheduler.scheduler import Scheduler
 
 config = configparser.ConfigParser()
 config.sections()
 config.read('bot.conf')
 
-DEV_API_KEY = str(config['DEFAULT']['DEV_API_KEY'])
-TOKEN = str(config['DEFAULT']['TOKEN'])
-dest = str(config['DEFAULT']['dest'])
-shut_down_alert = str(config['DEFAULT']['shut_down_alert'])
+# DEV_API_KEY = str(config['DEFAULT']['DEV_API_KEY'])
+# TOKEN = str(config['DEFAULT']['TOKEN'])
+# dest = str(config['DEFAULT']['dest'])
+# shut_down_alert = str(config['DEFAULT']['shut_down_alert'])
+DEV_API_KEY = "44db6a862fba0b067b1930da0d769e98"
+TOKEN = '213675554:AAEHHFkB-NCFt0evRhfoodeL3SOIIEfDGNQ'
+dest = '@clima_rio'
+shut_down_alert = '@shut_down_clima_rio'
 
 bot = telebot.TeleBot(TOKEN)
-# sched = BlockingScheduler()
-sched = Scheduler()
+sched = BlockingScheduler()
+# sched = Scheduler()
 
 
 def kelvin_to_celsius(kelvin):
@@ -70,24 +73,8 @@ def job():
     except:
         bot.send_message(shut_down_alert, "Dude, your bot is down...:\n\n{0}".format(traceback.format_exc()))
 
-# @sched.interval_schedule()
-def timed_job():
-    print('This job is run every one minutes.')
+@sched.scheduled_job('interval', seconds=10)
+def scheduled_job():
     job()
 
-# @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
-# def scheduled_job():
-#     print('This job is run every weekday at 5pm.')
-#     job()
-
-
-# run jobs
-# schedule.every().hour.do(job)
-# schedule.every(1).minutes.do(job)
-#
-# while True:
-#     schedule.run_pending()
-    # time.sleep(1)
-# job()
-sched.add_job(timed_job, 'interval', seconds=10, id="timed_job")
 sched.start()
