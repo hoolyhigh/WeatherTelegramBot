@@ -53,6 +53,7 @@ def job():
         sun = ':black_sun_with_rays:'
         sun_with_cloud_and_rain = ':white_sun_behind_cloud_with_rain:'
         rain = ':cloud_with_rain:'
+        umbrella = ':umbruella_with_rain_drops:'
 
         emoji_to_show = sun # default is the sun
 
@@ -63,7 +64,9 @@ def job():
 
 
         if main_current == 'Clouds':
-            emoji_to_show = ':cloud:'
+            emoji_to_show = cloud
+        elif main_current == 'Thunderstorm':
+            emoji_to_show = umbrella
         else:
             # send sun (default) and send message for me
             bot.send_message(shut_down_alert, "description to add: {0}".format(main_current))
@@ -73,8 +76,10 @@ def job():
     except:
         bot.send_message(shut_down_alert, "Dude, your bot is down...:\n\n{0}".format(traceback.format_exc()))
 
-@sched.scheduled_job('interval', seconds=10)
+
+# @sched.scheduled_job('interval', hour=21, minute=22)
 def scheduled_job():
     job()
 
+sched.add_job(scheduled_job, 'cron', month='*', day='*', hour='0-23')
 sched.start()
